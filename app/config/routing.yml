@@ -1,0 +1,10 @@
+BloggerBlogBundle_homepage:
+    resource: "@BloggerBlogBundle/Resources/config/routing.yml"
+    prefix:   /blog
+
+
+app:
+    resource: @AppBundle/Controller/
+    type:     annotation
+
+

@@ -154,6 +154,17 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             }
             not_BloggerBlogBundle_about:
 
+            // BloggerBlogBundle_contact
+            if ($pathinfo === '/blog/contact') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_BloggerBlogBundle_contact;
+                }
+
+                return array (  '_controller' => 'Blogger\\BlogBundle\\Controller\\PageController::contactAction',  '_route' => 'BloggerBlogBundle_contact',);
+            }
+            not_BloggerBlogBundle_contact:
+
         }
 
         // homepage

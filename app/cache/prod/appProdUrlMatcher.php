@@ -54,6 +54,17 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
             }
             not_BloggerBlogBundle_about:
 
+            // BloggerBlogBundle_contact
+            if ($pathinfo === '/blog/contact') {
+                if (!in_array($this->context->getMethod(), array('GET', 'POST', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'POST', 'HEAD'));
+                    goto not_BloggerBlogBundle_contact;
+                }
+
+                return array (  '_controller' => 'Blogger\\BlogBundle\\Controller\\PageController::contactAction',  '_route' => 'BloggerBlogBundle_contact',);
+            }
+            not_BloggerBlogBundle_contact:
+
         }
 
         // homepage

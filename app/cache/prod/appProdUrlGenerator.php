@@ -15,6 +15,7 @@ class appProdUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerat
     private static $declaredRoutes = array(
         'BloggerBlogBundle_homepage' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'Blogger\\BlogBundle\\Controller\\PageController::indexAction',  ),  2 =>   array (    '_method' => 'GET',  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/blog/',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
         'BloggerBlogBundle_about' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'Blogger\\BlogBundle\\Controller\\PageController::aboutAction',  ),  2 =>   array (    '_method' => 'GET',  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/blog/about',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
+        'BloggerBlogBundle_contact' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'Blogger\\BlogBundle\\Controller\\PageController::contactAction',  ),  2 =>   array (    '_method' => 'GET|POST',  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/blog/contact',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
         'homepage' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'AppBundle\\Controller\\DefaultController::indexAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
     );
 

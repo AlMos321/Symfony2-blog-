@@ -4,6 +4,12 @@
 
 namespace Blogger\BlogBundle\Entity;
 
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints as Assert;
+
 class Enquiry
 {
     protected $name;
@@ -13,6 +19,28 @@ class Enquiry
     protected $subject;
 
     protected $body;
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('name', new NotBlank());
+
+        $metadata->addPropertyConstraint('email', new Email(array(
+            'message' => 'symblogу не нравится некорректный email - адрес. Пожалуйста, введите действительный email!'
+        )));
+
+        $metadata->addPropertyConstraint('subject', new NotBlank());
+        $metadata->addPropertyConstraint('subject', new Assert\Length(array(
+            'min'        => 2,
+            'max'        => 50,
+
+        )));
+
+        $metadata->addPropertyConstraint('body', new Assert\Length(array(
+            'min'        => 2,
+            'max'        => 50,
+
+        )));
+    }
 
     public function getName()
     {

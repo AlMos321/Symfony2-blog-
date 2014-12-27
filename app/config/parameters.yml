@@ -5,10 +5,15 @@ parameters:
     database_port: null
     database_name: symfony
     database_user: root
-    database_password: null
-    mailer_transport: smtp
-    mailer_host: 127.0.0.1
-    mailer_user: null
-    mailer_password: null
+    database_password: 111
+    mailer_transport: gmail
+    mailer_encryption: ssl
+    mailer_auth_mode: login
+    mailer_host: smtp.gmail.com
+    mailer_user: olegkakyzmin@gmail.com
+    mailer_password: 19941994aa
+    mailer_port: 587
     locale: en
     secret: ThisTokenIsNotSoSecretChangeIt
+
+

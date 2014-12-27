@@ -29,11 +29,23 @@ class PageController extends Controller
             $form->bind($request);
 
             if ($form->isValid()) {
-                // Выполнение некоторого действия, например, отправка письма.
+
+                    $message = \Swift_Message::newInstance()
+                        ->setSubject('Contact enquiry from symblog')
+                        ->setFrom('enquiries@symblog.co.uk')
+                        ->setTo($this->container->getParameter('blogger_blog.emails.contact_email'))
+                        ->setBody($this->renderView('BloggerBlogBundle:Page:contactEmail.txt.twig', array('enquiry' => $enquiry)));
+                $this->get('mailer')->send($message);
+
+
+                $this->get('session')->getFlashBag()->add(
+                    'blogger-notice',
+                    'Ваш запрос успешно отправлен. Спасибо!');
 
                 // Редирект - это важно для предотвращения повторного ввода данных в форму,
                 // если пользователь обновил страницу.
                 return $this->redirect($this->generateUrl('BloggerBlogBundle_contact'));
+
             }
         }
 

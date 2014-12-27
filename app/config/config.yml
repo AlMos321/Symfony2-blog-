@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: @BloggerBlogBundle/Resources/config/config.yml }
 
 framework:
     #esi:             ~
@@ -66,14 +67,12 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
+    encryption: ssl
+    auth_mode: login
     transport: "%mailer_transport%"
     host:      "%mailer_host%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
-    port:      %mailer_port%
     spool:     { type: memory }
 
-    imports:
-        # .. existing import here
-        - { resource: @BloggerBlogBundle/Resources/config/config.yml }
 

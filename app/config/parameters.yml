@@ -11,8 +11,7 @@ parameters:
     mailer_auth_mode: login
     mailer_host: smtp.gmail.com
     mailer_user: olegkakyzmin@gmail.com
-    mailer_password: 19941994aa
-    mailer_port: 587
+    mailer_password: pas
     locale: en
     secret: ThisTokenIsNotSoSecretChangeIt
 

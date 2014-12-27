@@ -15,8 +15,25 @@ class __TwigTemplate_421592987a9d792ce1305e4c3fabe6334549d42ca94fa63f19763b5ac20
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        // line 1
-        echo "It is my messtage for you!";
+        // line 2
+        echo "Контактный запрос от ";
+        echo $this->getAttribute((isset($context["enquiry"]) ? $context["enquiry"] : null), "name", array());
+        echo " в ";
+        echo twig_date_format_filter($this->env, "now", "Y-m-d H:i");
+        echo ".
+
+Ответить на: ";
+        // line 4
+        echo $this->getAttribute((isset($context["enquiry"]) ? $context["enquiry"] : null), "email", array());
+        echo "
+Тема: ";
+        // line 5
+        echo $this->getAttribute((isset($context["enquiry"]) ? $context["enquiry"] : null), "subject", array());
+        echo "
+Сообщение:
+";
+        // line 7
+        echo $this->getAttribute((isset($context["enquiry"]) ? $context["enquiry"] : null), "body", array());
     }
 
     public function getTemplateName()
@@ -24,8 +41,13 @@ class __TwigTemplate_421592987a9d792ce1305e4c3fabe6334549d42ca94fa63f19763b5ac20
         return "BloggerBlogBundle:Page:contactEmail.txt.twig";
     }
 
+    public function isTraitable()
+    {
+        return false;
+    }
+
     public function getDebugInfo()
     {
-        return array (  19 => 1,);
+        return array (  36 => 7,  31 => 5,  27 => 4,  19 => 2,);
     }
 }

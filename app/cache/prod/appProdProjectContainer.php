@@ -44,11 +44,13 @@ class appProdProjectContainer extends Container
             'mailer_transport' => 'gmail',
             'mailer_encryption' => 'ssl',
             'mailer_auth_mode' => 'login',
-            'mailer_host' => NULL,
+            'mailer_host' => 'smtp.gmail.com',
             'mailer_user' => 'olegkakyzmin@gmail.com',
             'mailer_password' => '19941994aa',
+            'mailer_port' => 587,
             'locale' => 'en',
             'secret' => 'ThisTokenIsNotSoSecretChangeIt',
+            'blogger_blog.emails.contact_email' => 'alexmoss09@gmail.com',
             'controller_resolver.class' => 'Symfony\\Bundle\\FrameworkBundle\\Controller\\ControllerResolver',
             'controller_name_converter.class' => 'Symfony\\Bundle\\FrameworkBundle\\Controller\\ControllerNameParser',
             'response_listener.class' => 'Symfony\\Component\\HttpKernel\\EventListener\\ResponseListener',
@@ -391,10 +393,10 @@ class appProdProjectContainer extends Container
             'swiftmailer.mailer.default.transport.name' => 'smtp',
             'swiftmailer.mailer.default.delivery.enabled' => true,
             'swiftmailer.mailer.default.transport.smtp.encryption' => 'ssl',
-            'swiftmailer.mailer.default.transport.smtp.port' => 465,
+            'swiftmailer.mailer.default.transport.smtp.port' => 587,
             'swiftmailer.mailer.default.transport.smtp.host' => 'smtp.gmail.com',
             'swiftmailer.mailer.default.transport.smtp.username' => 'olegkakyzmin@gmail.com',
-            'swiftmailer.mailer.default.transport.smtp.password' => 111,
+            'swiftmailer.mailer.default.transport.smtp.password' => '19941994aa',
             'swiftmailer.mailer.default.transport.smtp.auth_mode' => 'login',
             'swiftmailer.mailer.default.transport.smtp.timeout' => 30,
             'swiftmailer.mailer.default.transport.smtp.source_ip' => NULL,
@@ -1402,11 +1404,11 @@ class appProdProjectContainer extends Container
     {
         $a = new \Swift_Transport_Esmtp_AuthHandler(array(0 => new \Swift_Transport_Esmtp_Auth_CramMd5Authenticator(), 1 => new \Swift_Transport_Esmtp_Auth_LoginAuthenticator(), 2 => new \Swift_Transport_Esmtp_Auth_PlainAuthenticator()));
         $a->setUsername('olegkakyzmin@gmail.com');
-        $a->setPassword(111);
+        $a->setPassword('19941994aa');
         $a->setAuthMode('login');
         $this->services['swiftmailer.mailer.default.transport.real'] = $instance = new \Swift_Transport_EsmtpTransport(new \Swift_Transport_StreamBuffer(new \Swift_StreamFilters_StringReplacementFilterFactory()), array(0 => $a), $this->get('swiftmailer.mailer.default.transport.eventdispatcher'));
         $instance->setHost('smtp.gmail.com');
-        $instance->setPort(465);
+        $instance->setPort(587);
         $instance->setEncryption('ssl');
         $instance->setTimeout(30);
         $instance->setSourceIp(NULL);

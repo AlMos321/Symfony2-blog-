@@ -7,7 +7,15 @@ class __TwigTemplate_6ce6800202f3a15da628a5cf7f43588507387a943e52337360640fe2db3
     {
         parent::__construct($env);
 
-        $this->parent = $this->env->loadTemplate("BloggerBlogBundle::layout.html.twig");
+        // line 2
+        try {
+            $this->parent = $this->env->loadTemplate("BloggerBlogBundle::layout.html.twig");
+        } catch (Twig_Error_Loader $e) {
+            $e->setTemplateFile($this->getTemplateName());
+            $e->setTemplateLine(2);
+
+            throw $e;
+        }
 
         $this->blocks = array(
             'body' => array($this, 'block_body'),
@@ -24,10 +32,10 @@ class __TwigTemplate_6ce6800202f3a15da628a5cf7f43588507387a943e52337360640fe2db3
         $this->parent->display($context, array_merge($this->blocks, $blocks));
     }
 
-    // line 4
+    // line 6
     public function block_body($context, array $blocks = array())
     {
-        // line 5
+        // line 7
         echo "    Blog homepage
 ";
     }
@@ -44,6 +52,6 @@ class __TwigTemplate_6ce6800202f3a15da628a5cf7f43588507387a943e52337360640fe2db3
 
     public function getDebugInfo()
     {
-        return array (  31 => 5,  28 => 4,);
+        return array (  39 => 7,  36 => 6,  11 => 2,);
     }
 }

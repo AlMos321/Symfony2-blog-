@@ -7,7 +7,15 @@ class __TwigTemplate_bd09f18054af12892ea14d0552d2f1fb2162acd1d72543697c6c853845c
     {
         parent::__construct($env);
 
-        $this->parent = $this->env->loadTemplate("@WebProfiler/Profiler/layout.html.twig");
+        // line 1
+        try {
+            $this->parent = $this->env->loadTemplate("@WebProfiler/Profiler/layout.html.twig");
+        } catch (Twig_Error_Loader $e) {
+            $e->setTemplateFile($this->getTemplateName());
+            $e->setTemplateLine(1);
+
+            throw $e;
+        }
 
         $this->blocks = array(
             'toolbar' => array($this, 'block_toolbar'),
@@ -50,7 +58,7 @@ class __TwigTemplate_bd09f18054af12892ea14d0552d2f1fb2162acd1d72543697c6c853845c
         // line 13
         echo twig_escape_filter($this->env, sprintf("%.1f", (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "memory", array()) / 1024) / 1024)), "html", null, true);
         echo " / ";
-        echo ((($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "memoryLimit", array()) == (-1))) ? ("&infin;") : (twig_escape_filter($this->env, sprintf("%.1f", (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "memoryLimit", array()) / 1024) / 1024)))));
+        echo ((($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "memoryLimit", array()) ==  -1)) ? ("&infin;") : (twig_escape_filter($this->env, sprintf("%.1f", (($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "memoryLimit", array()) / 1024) / 1024)))));
         echo " MB</span>
         </div>
     ";
@@ -72,6 +80,6 @@ class __TwigTemplate_bd09f18054af12892ea14d0552d2f1fb2162acd1d72543697c6c853845c
 
     public function getDebugInfo()
     {
-        return array (  59 => 16,  51 => 13,  47 => 11,  44 => 10,  38 => 7,  34 => 5,  31 => 4,  28 => 3,);
+        return array (  67 => 16,  59 => 13,  55 => 11,  52 => 10,  46 => 7,  42 => 5,  39 => 4,  36 => 3,  11 => 1,);
     }
 }

@@ -7,10 +7,19 @@ class __TwigTemplate_6050d9e030e716c656f5e3e6c5dc2329a4b54b5cdb9f413989bcd9e4cec
     {
         parent::__construct($env);
 
-        $this->parent = $this->env->loadTemplate("::base.html.twig");
+        // line 2
+        try {
+            $this->parent = $this->env->loadTemplate("::base.html.twig");
+        } catch (Twig_Error_Loader $e) {
+            $e->setTemplateFile($this->getTemplateName());
+            $e->setTemplateLine(2);
+
+            throw $e;
+        }
 
         $this->blocks = array(
             'stylesheets' => array($this, 'block_stylesheets'),
+            'navigation' => array($this, 'block_navigation'),
             'sidebar' => array($this, 'block_sidebar'),
         );
     }
@@ -40,9 +49,38 @@ class __TwigTemplate_6050d9e030e716c656f5e3e6c5dc2329a4b54b5cdb9f413989bcd9e4cec
     }
 
     // line 9
-    public function block_sidebar($context, array $blocks = array())
+    public function block_navigation($context, array $blocks = array())
     {
         // line 10
+        echo "     <nav>
+         <ul class=\"navigation\">
+             <li><a href=\"";
+        // line 12
+        echo $this->env->getExtension('routing')->getPath("BloggerBlogBundle_homepage");
+        echo "\"> ";
+        echo twig_escape_filter($this->env, $this->env->getExtension('translator')->trans("title.blog_homepage"), "html", null, true);
+        echo " </a></li>
+             <li><a href=\"";
+        // line 13
+        echo $this->env->getExtension('routing')->getPath("BloggerBlogBundle_about");
+        echo "\">";
+        echo twig_escape_filter($this->env, $this->env->getExtension('translator')->trans("title.about"), "html", null, true);
+        echo "</a></li>
+             <li><a href=\"";
+        // line 14
+        echo $this->env->getExtension('routing')->getPath("BloggerBlogBundle_contact");
+        echo "\">";
+        echo twig_escape_filter($this->env, $this->env->getExtension('translator')->trans("title.contact"), "html", null, true);
+        echo "</a></li>
+         </ul>
+     </nav>
+ ";
+    }
+
+    // line 19
+    public function block_sidebar($context, array $blocks = array())
+    {
+        // line 20
         echo "    Sidebar content
 ";
     }
@@ -59,6 +97,6 @@ class __TwigTemplate_6050d9e030e716c656f5e3e6c5dc2329a4b54b5cdb9f413989bcd9e4cec
 
     public function getDebugInfo()
     {
-        return array (  46 => 10,  43 => 9,  37 => 6,  32 => 5,  29 => 4,);
+        return array (  84 => 20,  81 => 19,  71 => 14,  65 => 13,  59 => 12,  55 => 10,  52 => 9,  46 => 6,  41 => 5,  38 => 4,  11 => 2,);
     }
 }

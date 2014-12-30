@@ -3003,7 +3003,7 @@ namespace
 {
 class Twig_Environment
 {
-const VERSION ='1.16.2';
+const VERSION ='1.16.3';
 protected $charset;
 protected $loader;
 protected $debug;
@@ -3621,8 +3621,11 @@ protected function writeCacheFile($file, $content)
 {
 $dir = dirname($file);
 if (!is_dir($dir)) {
-if (false === @mkdir($dir, 0777, true) && !is_dir($dir)) {
+if (false === @mkdir($dir, 0777, true)) {
+clearstatcache(false, $dir);
+if (!is_dir($dir)) {
 throw new RuntimeException(sprintf("Unable to create the cache directory (%s).", $dir));
+}
 }
 } elseif (!is_writable($dir)) {
 throw new RuntimeException(sprintf("Unable to write in the cache directory (%s).", $dir));
@@ -4057,7 +4060,11 @@ if ($item instanceof IteratorAggregate) {
 $item = $item->getIterator();
 }
 if ($start >= 0 && $length >= 0) {
+try {
 return iterator_to_array(new LimitIterator($item, $start, $length === null ? -1 : $length), $preserveKeys);
+} catch (OutOfBoundsException $exception) {
+return array();
+}
 }
 $item = iterator_to_array($item, $preserveKeys);
 }
@@ -4155,14 +4162,11 @@ return $array;
 function twig_in_filter($value, $compare)
 {
 if (is_array($compare)) {
-return in_array($value, $compare, is_object($value));
-} elseif (is_string($compare)) {
-if (!strlen($value)) {
-return empty($compare);
-}
-return false !== strpos($compare, (string) $value);
+return in_array($value, $compare, is_object($value) || is_resource($value));
+} elseif (is_string($compare) && (is_string($value) || is_int($value) || is_float($value))) {
+return''=== $value || false !== strpos($compare, (string) $value);
 } elseif ($compare instanceof Traversable) {
-return in_array($value, iterator_to_array($compare, false), is_object($value));
+return in_array($value, iterator_to_array($compare, false), is_object($value) || is_resource($value));
 }
 return false;
 }
@@ -4563,7 +4567,7 @@ abstract class Twig_Template implements Twig_TemplateInterface
 {
 protected static $cache = array();
 protected $parent;
-protected $parents;
+protected $parents = array();
 protected $env;
 protected $blocks;
 protected $traits;
@@ -4583,15 +4587,21 @@ public function getParent(array $context)
 if (null !== $this->parent) {
 return $this->parent;
 }
+try {
 $parent = $this->doGetParent($context);
 if (false === $parent) {
 return false;
-} elseif ($parent instanceof Twig_Template) {
-$name = $parent->getTemplateName();
-$this->parents[$name] = $parent;
-$parent = $name;
-} elseif (!isset($this->parents[$parent])) {
+}
+if ($parent instanceof Twig_Template) {
+return $this->parents[$parent->getTemplateName()] = $parent;
+}
+if (!isset($this->parents[$parent])) {
 $this->parents[$parent] = $this->env->loadTemplate($parent);
+}
+} catch (Twig_Error_Loader $e) {
+$e->setTemplateFile(null);
+$e->guess();
+throw $e;
 }
 return $this->parents[$parent];
 }

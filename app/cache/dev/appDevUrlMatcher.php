@@ -129,41 +129,48 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         if (0 === strpos($pathinfo, '/blog')) {
             // BloggerBlogBundle_homepage
-            if (rtrim($pathinfo, '/') === '/blog') {
+            if (preg_match('#^/blog/(?P<_locale>en|ua|ru)$#s', $pathinfo, $matches)) {
                 if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
                     $allow = array_merge($allow, array('GET', 'HEAD'));
                     goto not_BloggerBlogBundle_homepage;
                 }
 
-                if (substr($pathinfo, -1) !== '/') {
-                    return $this->redirect($pathinfo.'/', 'BloggerBlogBundle_homepage');
-                }
-
-                return array (  '_controller' => 'Blogger\\BlogBundle\\Controller\\PageController::indexAction',  '_route' => 'BloggerBlogBundle_homepage',);
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'BloggerBlogBundle_homepage')), array (  '_controller' => 'Blogger\\BlogBundle\\Controller\\PageController::indexAction',));
             }
             not_BloggerBlogBundle_homepage:
 
             // BloggerBlogBundle_about
-            if ($pathinfo === '/blog/about') {
+            if (preg_match('#^/blog/(?P<_locale>en|ua|ru)/about$#s', $pathinfo, $matches)) {
                 if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
                     $allow = array_merge($allow, array('GET', 'HEAD'));
                     goto not_BloggerBlogBundle_about;
                 }
 
-                return array (  '_controller' => 'Blogger\\BlogBundle\\Controller\\PageController::aboutAction',  '_route' => 'BloggerBlogBundle_about',);
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'BloggerBlogBundle_about')), array (  '_controller' => 'Blogger\\BlogBundle\\Controller\\PageController::aboutAction',));
             }
             not_BloggerBlogBundle_about:
 
             // BloggerBlogBundle_contact
-            if ($pathinfo === '/blog/contact') {
+            if (preg_match('#^/blog/(?P<_locale>en|ua|ru)/contact$#s', $pathinfo, $matches)) {
                 if (!in_array($this->context->getMethod(), array('GET', 'POST', 'HEAD'))) {
                     $allow = array_merge($allow, array('GET', 'POST', 'HEAD'));
                     goto not_BloggerBlogBundle_contact;
                 }
 
-                return array (  '_controller' => 'Blogger\\BlogBundle\\Controller\\PageController::contactAction',  '_route' => 'BloggerBlogBundle_contact',);
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'BloggerBlogBundle_contact')), array (  '_controller' => 'Blogger\\BlogBundle\\Controller\\PageController::contactAction',));
             }
             not_BloggerBlogBundle_contact:
+
+            // BloggerBlogBundle_blog_show
+            if (preg_match('#^/blog/(?P<_locale>en|ua|ru)/(?P<id>\\d+)$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_BloggerBlogBundle_blog_show;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'BloggerBlogBundle_blog_show')), array (  '_controller' => 'Blogger\\BlogBundle\\Controller\\BlogController::showAction',));
+            }
+            not_BloggerBlogBundle_blog_show:
 
         }
 

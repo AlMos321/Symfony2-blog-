@@ -7,7 +7,15 @@ class __TwigTemplate_4413392cc32eeb9f1589903a1ee7d1f376bf40befaa212e2ab9f24f7c6d
     {
         parent::__construct($env);
 
-        $this->parent = $this->env->loadTemplate("BloggerBlogBundle::layout.html.twig");
+        // line 2
+        try {
+            $this->parent = $this->env->loadTemplate("BloggerBlogBundle::layout.html.twig");
+        } catch (Twig_Error_Loader $e) {
+            $e->setTemplateFile($this->getTemplateName());
+            $e->setTemplateLine(2);
+
+            throw $e;
+        }
 
         $this->blocks = array(
             'title' => array($this, 'block_title'),
@@ -36,18 +44,16 @@ class __TwigTemplate_4413392cc32eeb9f1589903a1ee7d1f376bf40befaa212e2ab9f24f7c6d
     {
         // line 7
         echo "    <header>
-        <h1>О symblog</h1>
+        <h1>";
+        // line 8
+        echo twig_escape_filter($this->env, $this->env->getExtension('translator')->trans("menu.about"), "html", null, true);
+        echo "</h1>
     </header>
     <article>
-        <p>Donec imperdiet ante sed diam consequat et dictum erat faucibus. Aliquam sit
-            amet vehicula leo. Morbi urna dui, tempor ac posuere et, rutrum at dui.
-            Curabitur neque quam, ultricies ut imperdiet id, ornare varius arcu. Ut congue
-            urna sit amet tellus malesuada nec elementum risus molestie. Donec gravida
-            tellus sed tortor adipiscing fringilla. Donec nulla mauris, mollis egestas
-            condimentum laoreet, lacinia vel lorem. Morbi vitae justo sit amet felis
-            vehicula commodo a placerat lacus. Mauris at est elit, nec vehicula urna. Duis a
-            lacus nisl. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-            posuere cubilia Curae.</p>
+        <p>";
+        // line 11
+        echo twig_escape_filter($this->env, $this->env->getExtension('translator')->trans("menu.logs"), "html", null, true);
+        echo "</p>
     </article>
 ";
     }
@@ -64,6 +70,6 @@ class __TwigTemplate_4413392cc32eeb9f1589903a1ee7d1f376bf40befaa212e2ab9f24f7c6d
 
     public function getDebugInfo()
     {
-        return array (  38 => 7,  35 => 6,  29 => 4,);
+        return array (  55 => 11,  49 => 8,  46 => 7,  43 => 6,  37 => 4,  11 => 2,);
     }
 }
